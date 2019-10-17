@@ -7,9 +7,15 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class JsonHomeReader implements HomeReader {
-    public SmartHome readHome() throws IOException {
+    @Override
+    public SmartHome readHome() {
         Gson gson = new Gson();
-        String json = new String(Files.readAllBytes(Paths.get("smart-home-1.js")));
+        String json = null;
+        try {
+            json = new String(Files.readAllBytes(Paths.get("smart-home-1.js")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return gson.fromJson(json, SmartHome.class);
     }
 }

@@ -1,28 +1,32 @@
 package ru.sbt.mipt.oop;
 
-import java.io.IOException;
-
 public class Application {
 
-    public static void main(String... args) throws IOException {
-        Application app = new Application(new JsonHomeReader());
-        app.Execute();
-    }
-
     private HomeReader homeReader;
+    private SensorEventReader sensorEventReader;
 
-    public Application(HomeReader homeReader){
+    public Application(HomeReader homeReader, SensorEventReader sensorEventReader) {
         this.homeReader = homeReader;
+        this.sensorEventReader = sensorEventReader;
     }
 
-    public void Execute() throws IOException {
+    public static void main(String... args) {
+        Application app = new Application(new JsonHomeReader(), new RandomSensorEventReader());
+        app.execute();
+    }
+
+    public void execute() {
         // считываем состояние дома из файла
         SmartHome smartHome = homeReader.readHome();
         // начинаем цикл обработки событий
-        SensorEvent event = EventCreator.getNextSensorEvent();
+        performLoopEventHandle(smartHome);
+    }
+
+    private void performLoopEventHandle(SmartHome smartHome){
+        SensorEvent event = sensorEventReader.getNextSensorEvent();
         while (event != null) {
-            EventHandling.doEventHandling(smartHome, event);
-            event = EventCreator.getNextSensorEvent();
+            new EventProcess().processEvent(smartHome, event);
+            event = sensorEventReader.getNextSensorEvent();
         }
     }
 }
