@@ -1,4 +1,8 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.sensorReader;
+
+import ru.sbt.mipt.oop.SensorEventReader;
+import ru.sbt.mipt.oop.sensor.SensorEvent;
+import ru.sbt.mipt.oop.sensor.SensorEventType;
 
 public class RandomSensorEventReader implements SensorEventReader {
     @Override

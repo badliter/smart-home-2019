@@ -1,10 +1,17 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.eventprocessor;
 
-import static ru.sbt.mipt.oop.SensorEventType.*;
+import ru.sbt.mipt.oop.EventHandler;
+import ru.sbt.mipt.oop.action.TurnOnLight;
+import ru.sbt.mipt.oop.sensor.SensorEvent;
+import ru.sbt.mipt.oop.home.SmartHome;
+
+import java.util.ArrayList;
+
+import static ru.sbt.mipt.oop.sensor.SensorEventType.*;
 
 public class LightEventProcessor implements EventHandler {
     private void processLightEvent(boolean turnOn, SmartHome smartHome, SensorEvent event) {
-        smartHome.execute(new LightTurnOn(turnOn, event.getObjectId()));
+        smartHome.execute(new TurnOnLight(turnOn, event.getObjectId()), new ArrayList<>());
     }
 
     @Override

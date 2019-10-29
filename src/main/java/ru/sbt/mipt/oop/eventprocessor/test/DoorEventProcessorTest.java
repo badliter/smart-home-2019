@@ -1,6 +1,12 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.eventprocessor.test;
 
 import org.junit.jupiter.api.Test;
+import ru.sbt.mipt.oop.SensorEventReader;
+import ru.sbt.mipt.oop.homeReader.JsonHomeReader;
+import ru.sbt.mipt.oop.sensor.SensorEvent;
+import ru.sbt.mipt.oop.sensor.SensorEventType;
+import ru.sbt.mipt.oop.home.SmartHome;
+import ru.sbt.mipt.oop.eventprocessor.DoorEventProcessor;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
