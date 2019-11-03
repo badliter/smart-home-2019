@@ -35,15 +35,6 @@ public class Application {
         // считываем состояние дома из файла
         SmartHome smartHome = homeReader.readHome();
         // начинаем цикл обработки событий
-        performLoopEventHandle(smartHome);
-    }
-
-    private void performLoopEventHandle(SmartHome smartHome) {
-        SensorEvent event = sensorEventReader.getNextSensorEvent();
-        EventProcess eventProcess = new EventProcess();
-        while (event != null) {
-            eventProcess.processEvent(smartHome, event);
-            event = sensorEventReader.getNextSensorEvent();
-        }
+        new LoopEventHandler().performLoopEventHandle(smartHome, sensorEventReader);
     }
 }
