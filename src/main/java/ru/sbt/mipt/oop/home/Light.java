@@ -3,8 +3,6 @@ package ru.sbt.mipt.oop.home;
 import ru.sbt.mipt.oop.Action;
 import ru.sbt.mipt.oop.Actionable;
 
-import java.util.Collection;
-
 public class Light implements Actionable {
     private boolean isOn;
     private final String id;
@@ -27,9 +25,7 @@ public class Light implements Actionable {
     }
 
     @Override
-    public void execute(Action action, Collection<Actionable> collection) {
-        collection.add(this);
-        action.act(collection);
-        collection.remove(this);
+    public void execute(Action action) {
+        action.act(this);
     }
 }

@@ -2,11 +2,7 @@ package ru.sbt.mipt.oop.action;
 
 import ru.sbt.mipt.oop.Action;
 import ru.sbt.mipt.oop.Actionable;
-import ru.sbt.mipt.oop.home.Room;
-import ru.sbt.mipt.oop.home.WorkWithActionableCollection;
 import ru.sbt.mipt.oop.home.Door;
-
-import java.util.Collection;
 
 public class OpenDoor implements Action {
     private boolean isOpen;
@@ -18,20 +14,18 @@ public class OpenDoor implements Action {
     }
 
     @Override
-    public void act(Collection<Actionable> collection) {
-        Actionable actionable = new WorkWithActionableCollection(collection).getLast();
-        Room room = new WorkWithActionableCollection(collection).getRoom();
+    public void act(Actionable actionable) {
         if (actionable.getClass().equals(Door.class) && ((Door) actionable).getId().equals(id)) {
             ((Door) actionable).setOpen(isOpen);
-            writeToConsole(isOpen, ((Door) actionable), room);
+            writeToConsole(isOpen, ((Door) actionable));
         }
     }
 
-    private void writeToConsole(boolean isOpen, Door door, Room room) {
+    private void writeToConsole(boolean isOpen, Door door) {
         if (isOpen) {
-            System.out.println("Door " + door.getId() + " in room " + room.getName() + " was opened.");
+            System.out.println("Door " + door.getId() + " was opened.");
         } else {
-            System.out.println("Door " + door.getId() + " in room " + room.getName() + " was closed.");
+            System.out.println("Door " + door.getId() + " was closed.");
         }
     }
 }
