@@ -1,15 +1,17 @@
 package ru.sbt.mipt.oop.sensor;
 
-public class SensorEvent {
-    private final SensorEventType type;
+import ru.sbt.mipt.oop.SensorEvent;
+
+public class LightSensorEvent implements SensorEvent {
+    private final LightEventType type;
     private final String objectId;
 
-    public SensorEvent(SensorEventType type, String objectId) {
+    public LightSensorEvent(LightEventType type, String objectId) {
         this.type = type;
         this.objectId = objectId;
     }
 
-    public SensorEventType getType() {
+    public LightEventType getType() {
         return type;
     }
 
@@ -19,7 +21,7 @@ public class SensorEvent {
 
     @Override
     public String toString() {
-        return "SensorEvent{" +
+        return "LightSensorEvent{" +
                 "type=" + type +
                 ", objectId='" + objectId + '\'' +
                 '}';

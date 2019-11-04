@@ -1,16 +1,17 @@
-package ru.sbt.mipt.oop.eventprocessor.test;
+package test.eventprocessor;
 
 import org.junit.jupiter.api.Test;
+import ru.sbt.mipt.oop.SensorEvent;
 import ru.sbt.mipt.oop.eventprocessor.DoorEventProcessor;
 import ru.sbt.mipt.oop.home.SmartHome;
 import ru.sbt.mipt.oop.homeReader.JsonHomeReader;
-import ru.sbt.mipt.oop.sensor.SensorEvent;
-import ru.sbt.mipt.oop.sensor.SensorEventType;
+import ru.sbt.mipt.oop.sensor.DoorSensorEvent;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static ru.sbt.mipt.oop.sensor.DoorEventType.*;
 
 public class DoorEventProcessorTest {
 
@@ -20,7 +21,7 @@ public class DoorEventProcessorTest {
         System.setOut(new PrintStream(outContent));
 
         SmartHome smartHome = new JsonHomeReader().readHome();
-        SensorEvent event = new SensorEvent(SensorEventType.DOOR_CLOSED, "1");
+        SensorEvent event = new DoorSensorEvent(DOOR_CLOSED, "1");
         new DoorEventProcessor().handle(smartHome, event);
         assertEquals("Door 1 was closed.", outContent.toString().replace("\r","").replace("\n",""));
 
@@ -33,22 +34,9 @@ public class DoorEventProcessorTest {
         System.setOut(new PrintStream(outContent));
 
         SmartHome smartHome = new JsonHomeReader().readHome();
-        SensorEvent event = new SensorEvent(SensorEventType.DOOR_OPEN, "2");
+        SensorEvent event = new DoorSensorEvent(DOOR_OPEN, "2");
         new DoorEventProcessor().handle(smartHome, event);
         assertEquals("Door 2 was opened.", outContent.toString().replace("\r","").replace("\n",""));
-
-        System.setOut(null);
-    }
-
-    @Test
-    public void tryTurnOnLight() {
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
-
-        SmartHome smartHome = new JsonHomeReader().readHome();
-        SensorEvent event = new SensorEvent(SensorEventType.LIGHT_ON, "3");
-        new DoorEventProcessor().handle(smartHome, event);
-        assertEquals("", outContent.toString());
 
         System.setOut(null);
     }
@@ -59,7 +47,7 @@ public class DoorEventProcessorTest {
         System.setOut(new PrintStream(outContent));
 
         SmartHome smartHome = new JsonHomeReader().readHome();
-        SensorEvent event = new SensorEvent(SensorEventType.DOOR_OPEN, "5");
+        SensorEvent event = new DoorSensorEvent(DOOR_OPEN, "5");
         new DoorEventProcessor().handle(smartHome, event);
         assertEquals("", outContent.toString());
 

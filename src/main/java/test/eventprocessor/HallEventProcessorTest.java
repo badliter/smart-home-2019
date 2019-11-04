@@ -1,16 +1,17 @@
-package ru.sbt.mipt.oop.eventprocessor.test;
+package test.eventprocessor;
 
 import org.junit.jupiter.api.Test;
+import ru.sbt.mipt.oop.SensorEvent;
 import ru.sbt.mipt.oop.eventprocessor.HallEventProcessor;
 import ru.sbt.mipt.oop.home.SmartHome;
 import ru.sbt.mipt.oop.homeReader.JsonHomeReader;
-import ru.sbt.mipt.oop.sensor.SensorEvent;
-import ru.sbt.mipt.oop.sensor.SensorEventType;
+import ru.sbt.mipt.oop.sensor.DoorSensorEvent;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static ru.sbt.mipt.oop.sensor.DoorEventType.*;
 
 class HallEventProcessorTest {
     @Test
@@ -19,7 +20,7 @@ class HallEventProcessorTest {
         System.setOut(new PrintStream(outContent));
 
         SmartHome smartHome = new JsonHomeReader().readHome();
-        SensorEvent event = new SensorEvent(SensorEventType.DOOR_CLOSED, "4");
+        SensorEvent event = new DoorSensorEvent(DOOR_CLOSED, "4");
         new HallEventProcessor().handle(smartHome, event);
         String expected = "";
         for (int i = 1; i < 10; i++) {
@@ -31,12 +32,25 @@ class HallEventProcessorTest {
     }
 
     @Test
+    public void closeDoorNotInHall() {
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+
+        SmartHome smartHome = new JsonHomeReader().readHome();
+        SensorEvent event = new DoorSensorEvent(DOOR_CLOSED, "1");
+        new HallEventProcessor().handle(smartHome, event);
+        assertEquals("", outContent.toString().replace("\r","").replace("\n",""));
+
+        System.setOut(null);
+    }
+
+    @Test
     public void openDoorInHall() {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
 
         SmartHome smartHome = new JsonHomeReader().readHome();
-        SensorEvent event = new SensorEvent(SensorEventType.DOOR_OPEN, "4");
+        SensorEvent event = new DoorSensorEvent(DOOR_OPEN, "4");
         new HallEventProcessor().handle(smartHome, event);
         assertEquals("", outContent.toString());
 
