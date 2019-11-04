@@ -19,7 +19,7 @@ public class ActivatedAlarmState implements AlarmState {
     public void deactivate(String code) {
         if (homeAlarm.getCode().equals(code)) {
             homeAlarm.changeState(new DeactivatedAlarmState(homeAlarm));
-        } else if (!(homeAlarm.getAlarmState() instanceof DangerAlarmState)){
+        } else {
             homeAlarm.changeState(new DangerAlarmState(homeAlarm));
             MessageSender.sendMessage("Dangerous. Your home is unsafe!!!");
         }
