@@ -6,21 +6,19 @@ import ru.sbt.mipt.oop.action.TurnOnLight;
 import ru.sbt.mipt.oop.home.SmartHome;
 import ru.sbt.mipt.oop.sensor.LightSensorEvent;
 
-import static ru.sbt.mipt.oop.sensor.LightEventType.*;
+import static ru.sbt.mipt.oop.sensor.SensorEventType.*;
 
 public class LightEventProcessor implements EventHandler {
-    private void processLightEvent(boolean turnOn, SmartHome smartHome, LightSensorEvent event) {
+    private void processLightEvent(boolean turnOn, SmartHome smartHome, SensorEvent event) {
         smartHome.execute(new TurnOnLight(turnOn, event.getObjectId()));
     }
 
     @Override
     public void handle(SmartHome smartHome, SensorEvent event) {
-        if (event instanceof LightSensorEvent) {
-            if (((LightSensorEvent) event).getType() == LIGHT_ON) {
-                processLightEvent(true, smartHome, (LightSensorEvent) event);
-            } else if (((LightSensorEvent) event).getType() == LIGHT_OFF) {
-                processLightEvent(false, smartHome, (LightSensorEvent) event);
-            }
+        if (event.getType() == LIGHT_ON) {
+                processLightEvent(true, smartHome, event);
+            } else if (event.getType() == LIGHT_OFF) {
+                processLightEvent(false, smartHome, event);
         }
     }
 }

@@ -11,7 +11,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static ru.sbt.mipt.oop.sensor.LightEventType.*;
+import static ru.sbt.mipt.oop.sensor.SensorEventType.*;
 
 class LightEventProcessorTest {
     @Test

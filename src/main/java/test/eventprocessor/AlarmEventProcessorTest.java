@@ -50,7 +50,7 @@ class AlarmEventProcessorTest {
         SmartHome smartHome = new SmartHome(new JsonHomeReader().readHome(), new RandomAlarmReader().readAlarm());
         smartHome.getHomeAlarm().activate(new RandomAlarmReader().readAlarm().getCode());
         smartHome.getHomeAlarm().deactivate("Q!WW#EW#REFER$EFEFF$");
-        assertEquals("Message: Alarm came to Danger State!!!", outContent.toString().replace("\r","").replace("\n",""));
+        assertEquals("Message: Dangerous. Your home is unsafe!!!", outContent.toString().replace("\r","").replace("\n",""));
         assertEquals(new DangerAlarmState(new RandomAlarmReader().readAlarm()).STATE, ((DangerAlarmState) smartHome.getHomeAlarm().getAlarmState()).STATE);
 
         System.setOut(null);

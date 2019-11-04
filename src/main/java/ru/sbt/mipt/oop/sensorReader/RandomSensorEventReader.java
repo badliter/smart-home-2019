@@ -10,15 +10,15 @@ public class RandomSensorEventReader implements SensorEventReader {
         // pretend like we're getting the events from physical world, but here we're going to just generate some random events
         double random = Math.random();
         if (random < 0.3d){
-            DoorEventType sensorEventType = DoorEventType.values()[(int) (2 * Math.random())];
+            SensorEventType sensorEventType = SensorEventType.values()[(int) (2 * Math.random())];
             String objectId = "" + ((int) (4 * Math.random()) + 1);
             return new DoorSensorEvent(sensorEventType,objectId);
         } else if (random < 0.6d && random >= 0.3d){
-            LightEventType sensorEventType = LightEventType.values()[(int) (2 * Math.random())];
+            SensorEventType sensorEventType = SensorEventType.values()[(int) (2 * Math.random())];
             String objectId = "" + ((int) (10 * Math.random()) + 1);
             return new LightSensorEvent(sensorEventType,objectId);
         } else if (random < 0.95d && random >= 0.6d){
-            AlarmEventType sensorEventType = AlarmEventType.values()[(int) (2 * Math.random())];
+            SensorEventType sensorEventType = SensorEventType.values()[(int) (2 * Math.random())];
             String code = "" + ((int) (2 * Math.random()));
             return new AlarmSensorEvent(sensorEventType,code);
         }

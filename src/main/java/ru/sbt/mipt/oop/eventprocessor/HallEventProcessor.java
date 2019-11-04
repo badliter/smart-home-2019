@@ -8,12 +8,12 @@ import ru.sbt.mipt.oop.home.Room;
 import ru.sbt.mipt.oop.home.SmartHome;
 import ru.sbt.mipt.oop.sensor.DoorSensorEvent;
 
-import static ru.sbt.mipt.oop.sensor.DoorEventType.DOOR_CLOSED;
+import static ru.sbt.mipt.oop.sensor.SensorEventType.*;
 
 public class HallEventProcessor implements EventHandler {
     @Override
     public void handle(SmartHome smartHome, SensorEvent event) {
-        if (event instanceof DoorSensorEvent && ((DoorSensorEvent)event).getType() == DOOR_CLOSED && checkRoomIsHall(smartHome, ((DoorSensorEvent)event).getObjectId())) {
+        if (event.getType() == DOOR_CLOSED && checkRoomIsHall(smartHome, event.getObjectId())) {
             smartHome.execute(new AllLightTurnOff());
         }
     }

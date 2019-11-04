@@ -3,15 +3,15 @@ package ru.sbt.mipt.oop.sensor;
 import ru.sbt.mipt.oop.SensorEvent;
 
 public class DoorSensorEvent implements SensorEvent {
-    private final DoorEventType type;
+    private final SensorEventType type;
     private final String objectId;
 
-    public DoorSensorEvent(DoorEventType type, String objectId) {
+    public DoorSensorEvent(SensorEventType type, String objectId) {
         this.type = type;
         this.objectId = objectId;
     }
 
-    public DoorEventType getType() {
+    public SensorEventType getType() {
         return type;
     }
 
