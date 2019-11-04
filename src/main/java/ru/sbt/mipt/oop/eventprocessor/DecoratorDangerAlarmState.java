@@ -19,6 +19,7 @@ public class DecoratorDangerAlarmState implements EventProcess {
 
     @Override
     public void processEvent(SmartHome smartHome, SensorEvent event) {
+        System.out.println("Got event: " + event);
         if (smartHome.getHomeAlarm().getAlarmState() instanceof ActivatedAlarmState) {
             delegate.processEvent(smartHome, event);
             smartHome.getHomeAlarm().changeState(new DangerAlarmState(smartHome.getHomeAlarm()));
