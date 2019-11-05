@@ -5,6 +5,7 @@ import ru.sbt.mipt.oop.Actionable;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.function.Function;
 
 public class SmartHome implements Actionable {
     Collection<Room> rooms;
@@ -21,12 +22,9 @@ public class SmartHome implements Actionable {
         rooms.add(room);
     }
 
-    public Collection<Room> getRooms() {
-        return rooms;
-    }
-
     @Override
     public void execute(Action action) {
+        action.act(this);
         for (Room room : rooms) {
             room.execute(action);
         }

@@ -22,7 +22,7 @@ public class DoorEventProcessorTest {
         SmartHome smartHome = new JsonHomeReader().readHome();
         SensorEvent event = new SensorEvent(SensorEventType.DOOR_CLOSED, "1");
         new DoorEventProcessor().handle(smartHome, event);
-        assertEquals("Door 1 was closed.", outContent.toString().replace("\r","").replace("\n",""));
+        assertEquals("Door 1 in room kitchen was closed.", outContent.toString().replace("\r","").replace("\n",""));
 
         System.setOut(null);
     }
@@ -35,7 +35,7 @@ public class DoorEventProcessorTest {
         SmartHome smartHome = new JsonHomeReader().readHome();
         SensorEvent event = new SensorEvent(SensorEventType.DOOR_OPEN, "2");
         new DoorEventProcessor().handle(smartHome, event);
-        assertEquals("Door 2 was opened.", outContent.toString().replace("\r","").replace("\n",""));
+        assertEquals("Door 2 in room bathroom was opened.", outContent.toString().replace("\r","").replace("\n",""));
 
         System.setOut(null);
     }
