@@ -12,12 +12,12 @@ public class Application {
 
     private HomeReader homeReader;
     private SensorEventReader sensorEventReader;
-    private CollectionEventProcessor collectionEventProcessor;
+    private EventProcess eventProcess;
 
-    public Application(HomeReader homeReader, SensorEventReader sensorEventReader, CollectionEventProcessor collectionEventProcessor) {
+    public Application(HomeReader homeReader, SensorEventReader sensorEventReader, EventProcess eventProcess) {
         this.homeReader = homeReader;
         this.sensorEventReader = sensorEventReader;
-        this.collectionEventProcessor = collectionEventProcessor;
+        this.eventProcess = eventProcess;
     }
 
     public static void main(String... args) {
@@ -27,7 +27,10 @@ public class Application {
         collection.add(new HallEventProcessor());
         collection.add(new AlarmEventProcessor());
 
-        Application app = new Application(new JsonHomeReader(), new RandomSensorEventReader(), new CollectionEventProcessor(collection));
+        EventProcess eventProcess = new DecoratorDangerAlarmState(new EventProcessor(collection));
+
+
+        Application app = new Application(new JsonHomeReader(), new RandomSensorEventReader(), eventProcess);
         app.execute();
     }
 
@@ -35,6 +38,6 @@ public class Application {
         // считываем состояние дома из файла
         SmartHome smartHome = homeReader.readHome();
         // начинаем цикл обработки событий
-        new LoopEventHandler().performLoopEventHandle(smartHome, sensorEventReader);
+        new LoopEventHandler().performLoopEventHandle(smartHome, sensorEventReader, eventProcess);
     }
 }
