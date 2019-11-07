@@ -1,11 +1,10 @@
-package ru.sbt.mipt.oop.alarm;
+package ru.sbt.mipt.oop.home.alarm;
 
 import ru.sbt.mipt.oop.AlarmState;
 import ru.sbt.mipt.oop.MessageSender;
 
 public class DangerAlarmState implements AlarmState {
     private HomeAlarm homeAlarm;
-    public static final String STATE = "DANGER";
 
     public DangerAlarmState(HomeAlarm homeAlarm) {
         this.homeAlarm = homeAlarm;
@@ -18,5 +17,10 @@ public class DangerAlarmState implements AlarmState {
     @Override
     public void deactivate(String code) {
         new ActivatedAlarmState(homeAlarm).deactivate(code);
+    }
+
+    @Override
+    public void danger() {
+        MessageSender.sendMsgAboutDangerAlarmState();
     }
 }

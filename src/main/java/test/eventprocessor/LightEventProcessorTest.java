@@ -22,7 +22,7 @@ class LightEventProcessorTest {
         SmartHome smartHome = new JsonHomeReader().readHome();
         SensorEvent event = new LightSensorEvent(LIGHT_ON, "1");
         new LightEventProcessor().handle(smartHome, event);
-        assertEquals("Light 1 was turned on.", outContent.toString().replace("\r","").replace("\n",""));
+        assertEquals("Light 1 in room kitchen was turned on.", outContent.toString().replace("\r","").replace("\n",""));
 
         System.setOut(null);
     }
@@ -35,7 +35,7 @@ class LightEventProcessorTest {
         SmartHome smartHome = new JsonHomeReader().readHome();
         SensorEvent event = new LightSensorEvent(LIGHT_OFF, "4");
         new LightEventProcessor().handle(smartHome, event);
-        assertEquals("Light 4 was turned off.", outContent.toString().replace("\r","").replace("\n",""));
+        assertEquals("Light 4 in room bedroom was turned off.", outContent.toString().replace("\r","").replace("\n",""));
 
         System.setOut(null);
     }

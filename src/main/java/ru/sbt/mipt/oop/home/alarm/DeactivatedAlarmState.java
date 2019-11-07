@@ -1,10 +1,9 @@
-package ru.sbt.mipt.oop.alarm;
+package ru.sbt.mipt.oop.home.alarm;
 
 import ru.sbt.mipt.oop.AlarmState;
 
 public class DeactivatedAlarmState implements AlarmState {
     private HomeAlarm homeAlarm;
-    public static final String STATE = "DEACTIVATED";
 
     public DeactivatedAlarmState(HomeAlarm homeAlarm) {
         this.homeAlarm = homeAlarm;
@@ -19,5 +18,11 @@ public class DeactivatedAlarmState implements AlarmState {
 
     @Override
     public void deactivate(String code) {
+    }
+
+    @Override
+    public void danger() {
+        homeAlarm.changeState(new DangerAlarmState(homeAlarm));
+        homeAlarm.danger();
     }
 }

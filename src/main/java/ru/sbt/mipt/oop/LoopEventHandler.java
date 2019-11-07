@@ -1,6 +1,5 @@
 package ru.sbt.mipt.oop;
 
-import ru.sbt.mipt.oop.alarm.DangerAlarmState;
 import ru.sbt.mipt.oop.eventprocessor.DecoratorDangerAlarmState;
 import ru.sbt.mipt.oop.eventprocessor.EventProcessor;
 import ru.sbt.mipt.oop.home.SmartHome;

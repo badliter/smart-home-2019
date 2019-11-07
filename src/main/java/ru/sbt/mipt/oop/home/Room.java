@@ -16,20 +16,13 @@ public class Room implements Actionable {
         this.name = name;
     }
 
-    public Collection<Light> getLights() {
-        return lights;
-    }
-
-    public Collection<Door> getDoors() {
-        return doors;
-    }
-
     public String getName() {
         return name;
     }
 
     @Override
     public void execute(Action action) {
+        action.act(this);
         for (Light light : lights) {
             light.execute(action);
         }

@@ -1,13 +1,20 @@
-package ru.sbt.mipt.oop.alarm;
+package ru.sbt.mipt.oop.home.alarm;
 
+import ru.sbt.mipt.oop.Action;
+import ru.sbt.mipt.oop.Actionable;
 import ru.sbt.mipt.oop.AlarmState;
 
-public class HomeAlarm implements AlarmState {
+public class HomeAlarm implements AlarmState, Actionable {
     private AlarmState alarmState;
     private final String code;
 
     public HomeAlarm(String code) {
-        this.alarmState = new DeactivatedAlarmState(this);
+        alarmState = new DeactivatedAlarmState(this);
+        this.code = code;
+    }
+
+    public HomeAlarm(String code, AlarmState alarmState){
+        this.alarmState = alarmState;
         this.code = code;
     }
 
@@ -29,7 +36,17 @@ public class HomeAlarm implements AlarmState {
         alarmState.deactivate(code);
     }
 
+    @Override
+    public void danger() {
+        alarmState.danger();
+    }
+
     public String getCode() {
         return code;
+    }
+
+    @Override
+    public void execute(Action action) {
+        action.act(this);
     }
 }
