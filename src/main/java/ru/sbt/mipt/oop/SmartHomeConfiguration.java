@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import ru.sbt.mipt.oop.eventprocessor.*;
 import ru.sbt.mipt.oop.home.SmartHome;
 import ru.sbt.mipt.oop.homeReader.JsonHomeReader;
+import ru.sbt.mipt.oop.sensorReader.RandomSensorEventReader;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -17,6 +18,11 @@ public class SmartHomeConfiguration {
         SensorEventsManager sensorEventsManager = new SensorEventsManager();
         sensorEventsManager.registerEventHandler(new AdapterEventHandler_v3_7_1_To_EventProcess(getEventProcess(), getSmartHome()));
         return sensorEventsManager;
+    }
+
+    @Bean
+    public LoopEventHandler getLoopEventHandler(){
+        return new LoopEventHandler(getSmartHome(), getSensorEventReader(), getEventProcess());
     }
 
     private HomeReader getHomeReader(){
@@ -38,5 +44,9 @@ public class SmartHomeConfiguration {
 
     private EventProcess getEventProcess(){
         return new DecoratorDangerAlarmState(new EventProcessor(getCollectionEventProcess()));
+    }
+
+    private SensorEventReader getSensorEventReader(){
+        return new RandomSensorEventReader();
     }
 }
