@@ -20,6 +20,7 @@ public class TurnOnLight implements Action {
         if (room instanceof Room){
             room.execute( light -> {
                 if (light instanceof Light && ((Light) light).getId().equals(id)){
+                    ((Light) light).setOn(turnOn);
                     LogWriter.writeToConsoleAboutLightEvent(turnOn, (Light)light, (Room) room);
                 }
             });

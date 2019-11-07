@@ -21,6 +21,7 @@ public class OpenDoor implements Action {
         if (room instanceof Room) {
             room.execute(door -> {
                 if (door instanceof Door && ((Door) door).getId().equals(id)) {
+                    ((Door) door).setOpen(isOpen);
                     LogWriter.writeToConsoleAboutDoorEvent(isOpen, (Door) door, (Room) room);
                 }
             });
