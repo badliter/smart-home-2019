@@ -3,6 +3,7 @@ package ru.sbt.mipt.oop.homeReader;
 import com.google.gson.Gson;
 import ru.sbt.mipt.oop.HomeReader;
 import ru.sbt.mipt.oop.home.SmartHome;
+import ru.sbt.mipt.oop.home.alarm.HomeAlarm;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -18,6 +19,6 @@ public class JsonHomeReader implements HomeReader {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return gson.fromJson(json, SmartHome.class);
+        return new SmartHome(gson.fromJson(json, SmartHome.class), new HomeAlarm(gson.fromJson(json, SmartHome.class).getHomeAlarm().getCode()));
     }
 }

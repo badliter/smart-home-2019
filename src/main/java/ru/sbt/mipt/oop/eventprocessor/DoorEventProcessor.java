@@ -4,7 +4,6 @@ import ru.sbt.mipt.oop.EventHandler;
 import ru.sbt.mipt.oop.SensorEvent;
 import ru.sbt.mipt.oop.action.OpenDoor;
 import ru.sbt.mipt.oop.home.SmartHome;
-import ru.sbt.mipt.oop.sensor.DoorSensorEvent;
 
 import static ru.sbt.mipt.oop.sensor.SensorEventType.*;
 

@@ -1,11 +1,9 @@
-package ru.sbt.mipt.oop.alarm;
+package ru.sbt.mipt.oop.home.alarm;
 
 import ru.sbt.mipt.oop.AlarmState;
-import ru.sbt.mipt.oop.MessageSender;
 
 public class ActivatedAlarmState implements AlarmState {
     private HomeAlarm homeAlarm;
-    public static final String STATE = "ACTIVATED";
 
     public ActivatedAlarmState(HomeAlarm homeAlarm) {
         this.homeAlarm = homeAlarm;
@@ -20,8 +18,13 @@ public class ActivatedAlarmState implements AlarmState {
         if (homeAlarm.getCode().equals(code)) {
             homeAlarm.changeState(new DeactivatedAlarmState(homeAlarm));
         } else {
-            homeAlarm.changeState(new DangerAlarmState(homeAlarm));
-            MessageSender.sendMessage("Dangerous. Your home is unsafe!!!");
+            danger();
         }
+    }
+
+    @Override
+    public void danger() {
+        homeAlarm.changeState(new DangerAlarmState(homeAlarm));
+        homeAlarm.getAlarmState().danger();
     }
 }
