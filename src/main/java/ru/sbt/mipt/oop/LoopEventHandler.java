@@ -13,7 +13,7 @@ public class LoopEventHandler {
         this.eventProcess = eventProcess;
     }
 
-    public void performLoopEventHandle() {
+    public void start() {
         SensorEvent event = sensorEventReader.getNextSensorEvent();
         while (event != null) {
             eventProcess.processEvent(smartHome, event);
