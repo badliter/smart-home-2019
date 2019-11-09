@@ -2,8 +2,8 @@ package ru.sbt.mipt.oop;
 
 import ru.sbt.mipt.oop.eventprocessor.*;
 import ru.sbt.mipt.oop.home.SmartHome;
-import ru.sbt.mipt.oop.homeReader.JsonHomeReader;
-import ru.sbt.mipt.oop.sensorReader.RandomSensorEventReader;
+import ru.sbt.mipt.oop.homereader.JsonHomeReader;
+import ru.sbt.mipt.oop.sensorreader.RandomSensorEventReader;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -29,7 +29,6 @@ public class Application {
 
         EventProcess eventProcess = new DecoratorDangerAlarmState(new EventProcessor(collection));
 
-
         Application app = new Application(new JsonHomeReader(), new RandomSensorEventReader(), eventProcess);
         app.execute();
     }
@@ -38,6 +37,6 @@ public class Application {
         // считываем состояние дома из файла
         SmartHome smartHome = homeReader.readHome();
         // начинаем цикл обработки событий
-        new LoopEventHandler().performLoopEventHandle(smartHome, sensorEventReader, eventProcess);
+        new LoopEventHandler().start(smartHome, sensorEventReader, eventProcess);
     }
 }

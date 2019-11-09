@@ -6,8 +6,9 @@ import ru.sbt.mipt.oop.SensorEvent;
 import ru.sbt.mipt.oop.home.alarm.ActivatedAlarmState;
 import ru.sbt.mipt.oop.home.alarm.DangerAlarmState;
 import ru.sbt.mipt.oop.home.SmartHome;
+import ru.sbt.mipt.oop.sensor.AlarmSensorEvent;
 
-import static ru.sbt.mipt.oop.sensor.SensorEventType.*;
+import static ru.sbt.mipt.oop.sensor.AlarmEventType.ALARM_DEACTIVATE;
 
 public class DecoratorDangerAlarmState implements EventProcess {
     private EventProcess delegate;
@@ -33,14 +34,14 @@ public class DecoratorDangerAlarmState implements EventProcess {
     }
 
     private void doIfAlarmStateIsDanger(SmartHome smartHome, SensorEvent event) {
-        if (event.getType() == ALARM_DEACTIVATE) {
+        if (event instanceof AlarmSensorEvent && ((AlarmSensorEvent) event).getType() == ALARM_DEACTIVATE) {
             delegate.processEvent(smartHome, event);
         } else {
             sendMsg();
         }
     }
 
-    private void sendMsg(){
+    private void sendMsg() {
         MessageSender.sendMsgAboutDangerAlarmState();
     }
 }

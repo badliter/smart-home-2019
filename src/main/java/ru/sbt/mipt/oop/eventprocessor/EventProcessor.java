@@ -10,7 +10,7 @@ import java.util.Collection;
 public class EventProcessor implements EventProcess {
     private Collection<EventHandler> collectionEventProcessor;
 
-    public EventProcessor(Collection<EventHandler> collectionEventProcessor){
+    public EventProcessor(Collection<EventHandler> collectionEventProcessor) {
         this.collectionEventProcessor = collectionEventProcessor;
     }
 

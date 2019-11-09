@@ -1,4 +1,4 @@
-package ru.sbt.mipt.oop.homeReader;
+package ru.sbt.mipt.oop.homereader;
 
 import com.google.gson.Gson;
 import ru.sbt.mipt.oop.HomeReader;
