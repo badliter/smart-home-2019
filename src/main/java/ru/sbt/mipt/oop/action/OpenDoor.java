@@ -4,7 +4,6 @@ import ru.sbt.mipt.oop.Action;
 import ru.sbt.mipt.oop.Actionable;
 import ru.sbt.mipt.oop.LogWriter;
 import ru.sbt.mipt.oop.home.Door;
-import ru.sbt.mipt.oop.home.Light;
 import ru.sbt.mipt.oop.home.Room;
 
 public class OpenDoor implements Action {

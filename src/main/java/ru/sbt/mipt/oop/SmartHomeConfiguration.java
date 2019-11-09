@@ -5,8 +5,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import ru.sbt.mipt.oop.eventprocessor.*;
 import ru.sbt.mipt.oop.home.SmartHome;
-import ru.sbt.mipt.oop.homeReader.JsonHomeReader;
-import ru.sbt.mipt.oop.sensorReader.RandomSensorEventReader;
+import ru.sbt.mipt.oop.homereader.JsonHomeReader;
+import ru.sbt.mipt.oop.sensorreader.RandomSensorEventReader;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,26 +14,26 @@ import java.util.Collection;
 @Configuration
 public class SmartHomeConfiguration {
     @Bean
-    public SensorEventsManager getSensorEventsManager(){
+    public SensorEventsManager getSensorEventsManager() {
         SensorEventsManager sensorEventsManager = new SensorEventsManager();
-        sensorEventsManager.registerEventHandler(new AdapterEventHandler_v3_7_1_To_EventProcess(getEventProcess(), getSmartHome()));
+        sensorEventsManager.registerEventHandler(new AdapterEventHandlerToEventProcess(getEventProcess(), getSmartHome()));
         return sensorEventsManager;
     }
 
     @Bean
-    public LoopEventHandler getLoopEventHandler(){
+    public LoopEventHandler getLoopEventHandler() {
         return new LoopEventHandler(getSmartHome(), getSensorEventReader(), getEventProcess());
     }
 
-    private HomeReader getHomeReader(){
+    private HomeReader getHomeReader() {
         return new JsonHomeReader();
     }
 
-    private SmartHome getSmartHome(){
+    private SmartHome getSmartHome() {
         return getHomeReader().readHome();
     }
 
-    private Collection<EventHandler> getCollectionEventProcess(){
+    private Collection<EventHandler> getCollectionEventProcess() {
         Collection<EventHandler> collection = new ArrayList<>();
         collection.add(new LightEventProcessor());
         collection.add(new DoorEventProcessor());
@@ -42,11 +42,11 @@ public class SmartHomeConfiguration {
         return collection;
     }
 
-    private EventProcess getEventProcess(){
+    private EventProcess getEventProcess() {
         return new DecoratorDangerAlarmState(new EventProcessor(getCollectionEventProcess()));
     }
 
-    private SensorEventReader getSensorEventReader(){
+    private SensorEventReader getSensorEventReader() {
         return new RandomSensorEventReader();
     }
 }

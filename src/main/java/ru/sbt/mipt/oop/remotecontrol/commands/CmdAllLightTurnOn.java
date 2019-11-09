@@ -1,9 +1,9 @@
-package ru.sbt.mipt.oop.home.remotecontrol.commands;
+package ru.sbt.mipt.oop.remotecontrol.commands;
 
 import ru.sbt.mipt.oop.LogWriter;
 import ru.sbt.mipt.oop.home.Light;
 import ru.sbt.mipt.oop.home.SmartHome;
-import ru.sbt.mipt.oop.home.remotecontrol.Command;
+import ru.sbt.mipt.oop.remotecontrol.Command;
 
 public class CmdAllLightTurnOn implements Command {
     boolean turnOn;
