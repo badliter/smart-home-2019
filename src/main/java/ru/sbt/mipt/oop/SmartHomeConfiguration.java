@@ -15,7 +15,7 @@ public class SmartHomeConfiguration {
     @Bean
     public SensorEventsManager getSensorEventsManager(){
         SensorEventsManager sensorEventsManager = new SensorEventsManager();
-        sensorEventsManager.registerEventHandler(new AdapterEventHandler_v3_7_1_To_EventProcess(getEventProcess(), getSmartHome()));
+        sensorEventsManager.registerEventHandler(new AdapterEventHandlerToEventProcess(getEventProcess(), getSmartHome()));
         return sensorEventsManager;
     }
 
