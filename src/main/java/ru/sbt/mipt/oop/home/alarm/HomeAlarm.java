@@ -13,7 +13,7 @@ public class HomeAlarm implements AlarmState, Actionable {
         this.code = code;
     }
 
-    public HomeAlarm(String code, AlarmState alarmState){
+    public HomeAlarm(String code, AlarmState alarmState) {
         this.alarmState = alarmState;
         this.code = code;
     }

@@ -17,11 +17,11 @@ public class TurnOnLight implements Action {
 
     @Override
     public void act(Actionable room) {
-        if (room instanceof Room){
-            room.execute( light -> {
-                if (light instanceof Light && ((Light) light).getId().equals(id)){
+        if (room instanceof Room) {
+            room.execute(light -> {
+                if (light instanceof Light && ((Light) light).getId().equals(id)) {
                     ((Light) light).setOn(turnOn);
-                    LogWriter.writeToConsoleAboutLightEvent(turnOn, (Light)light, (Room) room);
+                    LogWriter.writeToConsoleAboutLightEvent(turnOn, (Light) light, (Room) room);
                 }
             });
         }

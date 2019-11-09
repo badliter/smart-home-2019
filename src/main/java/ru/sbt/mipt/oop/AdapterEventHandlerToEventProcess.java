@@ -5,7 +5,8 @@ import ru.sbt.mipt.oop.home.SmartHome;
 import ru.sbt.mipt.oop.sensor.DoorSensorEvent;
 import ru.sbt.mipt.oop.sensor.LightSensorEvent;
 
-import static ru.sbt.mipt.oop.sensor.SensorEventType.*;
+import static ru.sbt.mipt.oop.sensor.DoorEventType.*;
+import static ru.sbt.mipt.oop.sensor.LightEventType.*;
 
 public class AdapterEventHandlerToEventProcess implements library_v3_7_1.events.EventHandler {
     private final ru.sbt.mipt.oop.EventProcess eventProcess;
