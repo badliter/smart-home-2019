@@ -1,12 +1,15 @@
 package ru.sbt.mipt.oop.home.alarm;
 
 import ru.sbt.mipt.oop.AlarmState;
+import ru.sbt.mipt.oop.MessageSender;
 
 public class ActivatedAlarmState implements AlarmState {
-    private HomeAlarm homeAlarm;
+    private transient HomeAlarm homeAlarm;
+    private String code;
 
-    public ActivatedAlarmState(HomeAlarm homeAlarm) {
+    public ActivatedAlarmState(HomeAlarm homeAlarm, String code) {
         this.homeAlarm = homeAlarm;
+        this.code = code;
     }
 
     @Override
@@ -15,8 +18,8 @@ public class ActivatedAlarmState implements AlarmState {
 
     @Override
     public void deactivate(String code) {
-        if (homeAlarm.getCode().equals(code)) {
-            homeAlarm.changeState(new DeactivatedAlarmState(homeAlarm));
+        if (code.equals(this.code)) {
+            homeAlarm.changeState(new DeactivatedAlarmState(homeAlarm, this.code));
         } else {
             danger();
         }
@@ -24,7 +27,7 @@ public class ActivatedAlarmState implements AlarmState {
 
     @Override
     public void danger() {
-        homeAlarm.changeState(new DangerAlarmState(homeAlarm));
-        homeAlarm.getAlarmState().danger();
+        homeAlarm.changeState(new DangerAlarmState(homeAlarm, code));
+        MessageSender.sendMsgAboutDangerAlarmState();
     }
 }
