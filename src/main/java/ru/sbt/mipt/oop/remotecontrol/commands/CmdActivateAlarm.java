@@ -15,7 +15,7 @@ public class CmdActivateAlarm implements Command {
     public void doCommand() {
         smartHome.execute(alarm -> {
             if (alarm instanceof HomeAlarm){
-                ((HomeAlarm) alarm).activate(((HomeAlarm) alarm).getCode());
+                ((HomeAlarm) alarm).activate("");
             }
         });
     }

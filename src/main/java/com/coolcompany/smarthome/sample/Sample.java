@@ -1,6 +1,6 @@
-package library_v3_7_1.sample;
+package com.coolcompany.smarthome.sample;
 
-import library_v3_7_1.events.SensorEventsManager;
+import com.coolcompany.smarthome.events.SensorEventsManager;
 
 public class Sample {
 

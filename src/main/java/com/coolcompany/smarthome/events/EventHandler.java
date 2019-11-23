@@ -1,4 +1,4 @@
-package library_v3_7_1.events;
+package com.coolcompany.smarthome.events;
 
 public interface EventHandler {
 

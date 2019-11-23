@@ -9,12 +9,7 @@ public class HomeAlarm implements AlarmState, Actionable {
     private final String code;
 
     public HomeAlarm(String code) {
-        alarmState = new DeactivatedAlarmState(this);
-        this.code = code;
-    }
-
-    public HomeAlarm(String code, AlarmState alarmState) {
-        this.alarmState = alarmState;
+        alarmState = new DeactivatedAlarmState(this, code);
         this.code = code;
     }
 
@@ -39,10 +34,6 @@ public class HomeAlarm implements AlarmState, Actionable {
     @Override
     public void danger() {
         alarmState.danger();
-    }
-
-    public String getCode() {
-        return code;
     }
 
     @Override

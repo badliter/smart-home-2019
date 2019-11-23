@@ -15,10 +15,6 @@ public class AlarmSensorEvent implements SensorEvent {
         return type;
     }
 
-    public String getObjectId() {
-        return null;
-    }
-
     public String getCode() {
         return code;
     }

@@ -32,7 +32,7 @@ class AlarmEventProcessorTest {
     public void activateAlarmWithWrongCode() {
         SmartHome smartHome = new JsonHomeReader().readHome();
         activateAlarm(smartHome, "Q!WW#EW#REFER$EFEFF$");
-        assertTrue(smartHome.getHomeAlarm().getAlarmState() instanceof DeactivatedAlarmState);
+        assertTrue(smartHome.getHomeAlarm().getAlarmState() instanceof ActivatedAlarmState);
     }
 
     @Test
