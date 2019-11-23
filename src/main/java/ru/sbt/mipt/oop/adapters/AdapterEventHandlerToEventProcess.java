@@ -1,6 +1,8 @@
-package ru.sbt.mipt.oop;
+package ru.sbt.mipt.oop.adapters;
 
-import library_v3_7_1.events.CCSensorEvent;
+import com.coolcompany.smarthome.events.CCSensorEvent;
+import ru.sbt.mipt.oop.EventProcess;
+import ru.sbt.mipt.oop.SensorEvent;
 import ru.sbt.mipt.oop.home.SmartHome;
 import ru.sbt.mipt.oop.sensor.DoorSensorEvent;
 import ru.sbt.mipt.oop.sensor.LightSensorEvent;
@@ -8,7 +10,7 @@ import ru.sbt.mipt.oop.sensor.LightSensorEvent;
 import static ru.sbt.mipt.oop.sensor.DoorEventType.*;
 import static ru.sbt.mipt.oop.sensor.LightEventType.*;
 
-public class AdapterEventHandlerToEventProcess implements library_v3_7_1.events.EventHandler {
+public class AdapterEventHandlerToEventProcess implements com.coolcompany.smarthome.events.EventHandler {
     private final ru.sbt.mipt.oop.EventProcess eventProcess;
     private final SmartHome smartHome;
 

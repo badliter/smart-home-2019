@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class SmartHome implements Actionable {
-    Collection<Room> rooms;
-    HomeAlarm homeAlarm;
+    private Collection<Room> rooms;
+    private HomeAlarm homeAlarm;
 
     public SmartHome() {
         rooms = new ArrayList<>();
@@ -21,16 +21,6 @@ public class SmartHome implements Actionable {
 
     public SmartHome(Collection<Room> rooms, HomeAlarm homeAlarm) {
         this.rooms = rooms;
-        this.homeAlarm = homeAlarm;
-    }
-
-    public SmartHome(SmartHome smartHome, HomeAlarm homeAlarm) {
-        rooms = new ArrayList<>();
-        smartHome.execute(room -> {
-            if (room instanceof Room) {
-                addRoom((Room) room);
-            }
-        });
         this.homeAlarm = homeAlarm;
     }
 

@@ -3,6 +3,7 @@ package ru.sbt.mipt.oop;
 import library_v3_7_1.events.SensorEventsManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import ru.sbt.mipt.oop.adapters.AdapterEventHandlerToEventProcess;
 import ru.sbt.mipt.oop.eventprocessor.*;
 import ru.sbt.mipt.oop.home.SmartHome;
 import ru.sbt.mipt.oop.homereader.JsonHomeReader;
