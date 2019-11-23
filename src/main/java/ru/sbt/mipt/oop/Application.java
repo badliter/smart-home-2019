@@ -1,6 +1,6 @@
 package ru.sbt.mipt.oop;
 
-import library_v3_7_1.events.SensorEventsManager;
+import com.coolcompany.smarthome.events.SensorEventsManager;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
