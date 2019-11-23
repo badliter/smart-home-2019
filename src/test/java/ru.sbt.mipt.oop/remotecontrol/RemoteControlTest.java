@@ -1,17 +1,19 @@
 package ru.sbt.mipt.oop.remotecontrol;
 
+import org.junit.Before;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import ru.sbt.mipt.oop.configuration.RemoteControlConfiguration;
 import ru.sbt.mipt.oop.home.SmartHome;
 import ru.sbt.mipt.oop.home.alarm.ActivatedAlarmState;
 import ru.sbt.mipt.oop.home.alarm.DangerAlarmState;
-import ru.sbt.mipt.oop.homereader.JsonHomeReader;
-import ru.sbt.mipt.oop.remotecontrolreader.RandomRemoteControlReader;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.rmi.Remote;
-import java.util.HashMap;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -37,11 +39,21 @@ public class RemoteControlTest {
 //    3 - DangerAlarmTurnOn
 //    4 - TurnOnLightInHall
 
+    private SmartHome smartHome;
+    private RemoteControl rc1;
+    private RemoteControl rc2;
+
+    @BeforeEach
+    public void configBeforeTests(){
+        ApplicationContext context = new AnnotationConfigApplicationContext(RemoteControlConfiguration.class);
+        smartHome = context.getBean(SmartHome.class);
+        rc1 = (RemoteControl) context.getBean("remoteControlImpVar1");
+        rc2 = (RemoteControl) context.getBean("remoteControlImpVar2");
+    }
+
     @Test
     public void checkExecuteCommandCmdActivateAlarm_RC1() {
-        SmartHome smartHome = new JsonHomeReader().readHome();
-        Map<String, RemoteControl> mapRC = new RandomRemoteControlReader(smartHome).readRemoteControl();
-        mapRC.get("1").onButtonPressed("A");
+        rc1.onButtonPressed("A");
         assertTrue(smartHome.getHomeAlarm().getAlarmState() instanceof ActivatedAlarmState);
     }
 
@@ -50,9 +62,7 @@ public class RemoteControlTest {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
 
-        SmartHome smartHome = new JsonHomeReader().readHome();
-        Map<String, RemoteControl> mapRC = new RandomRemoteControlReader(smartHome).readRemoteControl();
-        mapRC.get("1").onButtonPressed("B");
+        rc1.onButtonPressed("B");
         String expected = "";
         for (int i = 1; i < 10; i++) {
             expected = expected + "Light " + i + " was turned on.";
@@ -66,9 +76,7 @@ public class RemoteControlTest {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
 
-        SmartHome smartHome = new JsonHomeReader().readHome();
-        Map<String, RemoteControl> mapRC = new RandomRemoteControlReader(smartHome).readRemoteControl();
-        mapRC.get("1").onButtonPressed("C");
+        rc1.onButtonPressed("C");
         String expected = "";
         for (int i = 1; i < 10; i++) {
             expected = expected + "Light " + i + " was turned off.";
@@ -82,18 +90,14 @@ public class RemoteControlTest {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
 
-        SmartHome smartHome = new JsonHomeReader().readHome();
-        Map<String, RemoteControl> mapRC = new RandomRemoteControlReader(smartHome).readRemoteControl();
-        mapRC.get("1").onButtonPressed("D");
+        rc1.onButtonPressed("D");
 
         assertEquals("Door 4 in room hall was closed.", outContent.toString().replace("\r", "").replace("\n", ""));
     }
 
     @Test
     public void checkExecuteCommandCmdDangerAlarmTurnOn_RC2() {
-        SmartHome smartHome = new JsonHomeReader().readHome();
-        Map<String, RemoteControl> mapRC = new RandomRemoteControlReader(smartHome).readRemoteControl();
-        mapRC.get("2").onButtonPressed("3");
+        rc2.onButtonPressed("3");
         assertTrue(smartHome.getHomeAlarm().getAlarmState() instanceof DangerAlarmState);
     }
 
@@ -102,9 +106,7 @@ public class RemoteControlTest {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
 
-        SmartHome smartHome = new JsonHomeReader().readHome();
-        Map<String, RemoteControl> mapRC = new RandomRemoteControlReader(smartHome).readRemoteControl();
-        mapRC.get("2").onButtonPressed("4");
+        rc2.onButtonPressed("4");
         String expected = "";
         for (int i = 7; i < 10; i++) {
             expected = expected + "Light " + i + " in room hall was turned off.";
@@ -118,9 +120,7 @@ public class RemoteControlTest {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
 
-        SmartHome smartHome = new JsonHomeReader().readHome();
-        Map<String, RemoteControl> mapRC = new RandomRemoteControlReader(smartHome).readRemoteControl();
-        mapRC.get("1").onButtonPressed("3");
+        rc1.onButtonPressed("3");
 
         assertEquals("", outContent.toString().replace("\r", "").replace("\n", ""));
     }
@@ -130,9 +130,7 @@ public class RemoteControlTest {
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outContent));
 
-        SmartHome smartHome = new JsonHomeReader().readHome();
-        Map<String, RemoteControl> mapRC = new RandomRemoteControlReader(smartHome).readRemoteControl();
-        mapRC.get("2").onButtonPressed("qwerty");
+        rc2.onButtonPressed("qwerty");
 
         assertEquals("", outContent.toString().replace("\r", "").replace("\n", ""));
     }
