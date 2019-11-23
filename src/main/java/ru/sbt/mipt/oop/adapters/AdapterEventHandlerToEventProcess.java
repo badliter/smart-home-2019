@@ -1,46 +1,24 @@
 package ru.sbt.mipt.oop.adapters;
 
 import com.coolcompany.smarthome.events.CCSensorEvent;
+import com.coolcompany.smarthome.events.EventHandler;
 import ru.sbt.mipt.oop.EventProcess;
-import ru.sbt.mipt.oop.SensorEvent;
+import ru.sbt.mipt.oop.adapters.converter.ccsensorevent.ConverterCCSensorEvent;
 import ru.sbt.mipt.oop.home.SmartHome;
-import ru.sbt.mipt.oop.sensor.DoorSensorEvent;
-import ru.sbt.mipt.oop.sensor.LightSensorEvent;
 
-import static ru.sbt.mipt.oop.sensor.DoorEventType.*;
-import static ru.sbt.mipt.oop.sensor.LightEventType.*;
-
-public class AdapterEventHandlerToEventProcess implements com.coolcompany.smarthome.events.EventHandler {
-    private final ru.sbt.mipt.oop.EventProcess eventProcess;
+public class AdapterEventHandlerToEventProcess implements EventHandler {
+    private final EventProcess eventProcess;
     private final SmartHome smartHome;
+    private final ConverterCCSensorEvent converterCCSensorEvent;
 
-    public AdapterEventHandlerToEventProcess(EventProcess eventProcess, SmartHome smartHome) {
+    public AdapterEventHandlerToEventProcess(EventProcess eventProcess, SmartHome smartHome, ConverterCCSensorEvent converterCCSensorEvent) {
         this.eventProcess = eventProcess;
         this.smartHome = smartHome;
+        this.converterCCSensorEvent = converterCCSensorEvent;
     }
 
     @Override
     public void handleEvent(CCSensorEvent event) {
-        eventProcess.processEvent(smartHome, getSensorEventFromCCSensorEvent(event));
-    }
-
-    private SensorEvent getSensorEventFromCCSensorEvent(CCSensorEvent ccSensorEvent) {
-        switch (ccSensorEvent.getEventType()) {
-            case "LightIsOn": {
-                return new LightSensorEvent(LIGHT_ON, ccSensorEvent.getObjectId());
-            }
-            case "LightIsOff": {
-                return new LightSensorEvent(LIGHT_OFF, ccSensorEvent.getObjectId());
-            }
-            case "DoorIsOpen": {
-                return new DoorSensorEvent(DOOR_OPEN, ccSensorEvent.getObjectId());
-            }
-            case "DoorIsClosed": {
-                return new DoorSensorEvent(DOOR_CLOSED, ccSensorEvent.getObjectId());
-            }
-            default: {
-                return null;
-            }
-        }
+        eventProcess.processEvent(smartHome, converterCCSensorEvent.convert(event));
     }
 }
