@@ -56,11 +56,6 @@ public class RemoteControlConfiguration {
     }
 
     @Bean
-    public SmartHome smartHome() {
-        return new JsonHomeReader().readHome();
-    }
-
-    @Bean
     public CmdActivateAlarm cmdActivateAlarm(SmartHome smartHome) {
         return new CmdActivateAlarm(smartHome);
     }

@@ -8,6 +8,7 @@ import org.junit.runners.JUnit4;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import ru.sbt.mipt.oop.configuration.RemoteControlConfiguration;
+import ru.sbt.mipt.oop.configuration.SmartHomeConfiguration;
 import ru.sbt.mipt.oop.home.SmartHome;
 import ru.sbt.mipt.oop.home.alarm.ActivatedAlarmState;
 import ru.sbt.mipt.oop.home.alarm.DangerAlarmState;
@@ -45,7 +46,7 @@ public class RemoteControlTest {
 
     @BeforeEach
     public void configBeforeTests(){
-        ApplicationContext context = new AnnotationConfigApplicationContext(RemoteControlConfiguration.class);
+        ApplicationContext context = new AnnotationConfigApplicationContext(SmartHomeConfiguration.class);
         smartHome = context.getBean(SmartHome.class);
         rc1 = (RemoteControl) context.getBean("remoteControlImpVar1");
         rc2 = (RemoteControl) context.getBean("remoteControlImpVar2");

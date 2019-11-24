@@ -3,6 +3,7 @@ package ru.sbt.mipt.oop.configuration;
 import com.coolcompany.smarthome.events.SensorEventsManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import ru.sbt.mipt.oop.EventHandler;
 import ru.sbt.mipt.oop.EventProcess;
 import ru.sbt.mipt.oop.adapters.AdapterEventHandlerToEventProcess;
@@ -10,10 +11,12 @@ import ru.sbt.mipt.oop.adapters.converter.ccsensorevent.*;
 import ru.sbt.mipt.oop.eventprocessor.*;
 import ru.sbt.mipt.oop.home.SmartHome;
 import ru.sbt.mipt.oop.homereader.JsonHomeReader;
+import ru.sbt.mipt.oop.remotecontrol.RemoteControl;
 
 import java.util.Collection;
 
 @Configuration
+@Import(RemoteControlConfiguration.class)
 public class SmartHomeConfiguration {
     @Bean
     public SensorEventsManager sensorEventsManager(EventProcess eventProcess, SmartHome smartHome, ConverterCCSensorEvent converterCCSensorEvent) {
