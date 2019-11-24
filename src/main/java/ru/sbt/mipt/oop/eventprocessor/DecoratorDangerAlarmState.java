@@ -35,7 +35,7 @@ public class DecoratorDangerAlarmState implements EventProcess {
 
     private void doIfAlarmStateIsDanger(SmartHome smartHome, SensorEvent event) {
         if (event instanceof AlarmSensorEvent && ((AlarmSensorEvent) event).getType() == ALARM_DEACTIVATE) {
-            smartHome.getHomeAlarm().deactivate(((AlarmSensorEvent)event).getCode());
+            delegate.processEvent(smartHome, event);
         } else {
             MessageSender.sendMsgAboutDangerAlarmState();
         }
