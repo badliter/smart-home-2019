@@ -80,5 +80,14 @@
       ],
       "name": "hall"
     }
-  ]
+  ],
+  "homeAlarm": {
+    "alarmState": {
+      "type": "ru.sbt.mipt.oop.home.alarm.DeactivatedAlarmState",
+      "data": {
+        "code": "0"
+      } 
+    },
+    "code": "0"
+  }
 }
