@@ -2,12 +2,19 @@ package ru.sbt.mipt.oop;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import ru.sbt.mipt.oop.home.Door;
+import ru.sbt.mipt.oop.home.Light;
+import ru.sbt.mipt.oop.home.Room;
+import ru.sbt.mipt.oop.home.SmartHome;
+import ru.sbt.mipt.oop.home.alarm.HomeAlarm;
+import ru.sbt.mipt.oop.serializer.JsonInterfaceAdapter;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class HomeBuilder {
@@ -25,11 +32,13 @@ public class HomeBuilder {
         Room hall = new Room(Arrays.asList(new Light("7", false), new Light("8", false), new Light("9", false)),
                 Arrays.asList(new Door(false, "4")),
                 "hall");
-        SmartHome smartHome = new SmartHome(Arrays.asList(kitchen, bathroom, bedroom, hall));
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        SmartHome smartHome = new SmartHome(Arrays.asList(kitchen, bathroom, bedroom, hall), new HomeAlarm("0"));
+        Gson gson = new GsonBuilder().setPrettyPrinting()
+                .registerTypeAdapter(AlarmState.class, new JsonInterfaceAdapter<AlarmState>())
+                .create();
         String jsonString = gson.toJson(smartHome);
         System.out.println(jsonString);
-        Path path = Paths.get("output.js");
+        Path path = Paths.get("output.json");
         try (BufferedWriter writer = Files.newBufferedWriter(path)) {
             writer.write(jsonString);
         }
